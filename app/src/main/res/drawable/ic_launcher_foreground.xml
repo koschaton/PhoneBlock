@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background circle / shield -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M54,18 L86,30 C86,60 54,88 54,88 C54,88 22,60 22,30 L54,18 Z" />
+    <!-- Phone with block slash icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,38 C42.9,38 42,38.9 42,40 L42,66 C42,67.1 42.9,68 44,68 L64,68 C65.1,68 66,67.1 66,66 L66,40 C66,38.9 65.1,38 64,38 L44,38 Z M54,65 C52.9,65 52,64.1 52,63 C52,61.9 52.9,61 54,61 C55.1,61 56,61.9 56,63 C56,64.1 55.1,65 54,65 Z M62,58 L46,58 L46,44 L62,44 L62,58 Z" />
+</vector>

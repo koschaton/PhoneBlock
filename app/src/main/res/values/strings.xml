@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Prefix Call Blocker</string>
+    <string name="default_role_title">ตั้งเป็นแอปคัดกรองสาย (Caller ID &amp; Spam)</string>
+    <string name="default_role_desc">เพื่อให้แอปสามารถตัดสายมิจฉาชีพและเบอร์สแปมได้ก่อนที่หน้าจอจะเด้งกวนใจ</string>
+</resources>

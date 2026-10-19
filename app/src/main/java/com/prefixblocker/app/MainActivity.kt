@@ -1,6 +1,7 @@
 package com.prefixblocker.app
 
 import android.app.role.RoleManager
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -103,12 +104,32 @@ class MainActivity : ComponentActivity() {
             val roleManager = getSystemService(RoleManager::class.java)
             if (roleManager != null && roleManager.isRoleAvailable(RoleManager.ROLE_CALL_SCREENING)) {
                 if (!roleManager.isRoleHeld(RoleManager.ROLE_CALL_SCREENING)) {
-                    val intent = roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_SCREENING)
-                    requestRoleLauncher.launch(intent)
+                    try {
+                        val intent = roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_SCREENING)
+                        requestRoleLauncher.launch(intent)
+                    } catch (e: Exception) {
+                        openDefaultAppsSettings()
+                    }
                 }
+            } else {
+                openDefaultAppsSettings()
             }
         } else {
             Toast.makeText(this, "ต้องการระบบ Android 10 (API 29) ขึ้นไป", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun openDefaultAppsSettings() {
+        try {
+            val intent = Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS)
+            startActivity(intent)
+        } catch (e: Exception) {
+            try {
+                val intent = Intent(android.provider.Settings.ACTION_SETTINGS)
+                startActivity(intent)
+            } catch (ex: Exception) {
+                Toast.makeText(this, "กรุณาไปที่ การตั้งค่า -> แอปเริ่มต้น -> การระบุผู้โทรและสแปม", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

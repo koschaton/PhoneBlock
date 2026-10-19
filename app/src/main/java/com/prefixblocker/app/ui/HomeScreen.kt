@@ -27,6 +27,7 @@ import com.prefixblocker.app.util.PhoneUtil
 fun HomeScreen(
     isRoleHeld: Boolean,
     onRequestRole: () -> Unit,
+    onOpenSettings: () -> Unit,
     totalBlockedCount: Int,
     activePrefixes: List<BlockedPrefix>,
     prefs: AppPreferences
@@ -103,7 +104,7 @@ fun HomeScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "ระบบต้องการสิทธิ์ 'Caller ID & Spam' เพื่อให้สามารถตัดสายก่อนที่หน้าจอจะเด้งเตือนได้",
+                        text = "ระบบต้องการสิทธิ์ 'แอปเริ่มต้น: การระบุผู้โทรและสแปม' เพื่อให้สามารถตัดสายก่อนที่หน้าจอจะเด้งเตือนได้",
                         fontSize = 13.sp,
                         color = TextPrimary
                     )
@@ -114,7 +115,17 @@ fun HomeScreen(
                         shape = RoundedCornerShape(8.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("กดอนุญาตสิทธิ์ที่นี่", color = Color.Black, fontWeight = FontWeight.Bold)
+                        Text("1. กดอนุญาตสิทธิ์ (เด้งหน้าต่าง)", color = Color.Black, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = onOpenSettings,
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = WarningAmber),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, WarningAmber)
+                    ) {
+                        Text("2. เปิดหน้าตั้งค่าแอปเริ่มต้น (สำหรับ Xiaomi)", fontWeight = FontWeight.Bold)
                     }
                 }
             }

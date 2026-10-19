@@ -55,7 +55,8 @@ class MainActivity : ComponentActivity() {
         if (isRoleHeld()) {
             Toast.makeText(this, "เปิดใช้งานระบบคัดกรองสายเรียบร้อยแล้ว!", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "จำเป็นต้องอนุญาตเพื่อให้สามารถตัดสายได้ทันที", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "กำลังเปิดหน้าตั้งค่าแอปเริ่มต้นเพื่อเลือกสิทธิ์...", Toast.LENGTH_SHORT).show()
+            openDefaultAppsSettings()
         }
     }
 
@@ -180,6 +181,7 @@ class MainActivity : ComponentActivity() {
                     Screen.Home -> HomeScreen(
                         isRoleHeld = isRoleHeldState.value,
                         onRequestRole = { requestCallScreeningRole() },
+                        onOpenSettings = { openDefaultAppsSettings() },
                         totalBlockedCount = totalBlockedCount,
                         activePrefixes = activePrefixes,
                         prefs = prefs

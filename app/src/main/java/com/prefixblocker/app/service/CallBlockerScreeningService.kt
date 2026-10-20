@@ -113,6 +113,7 @@ class CallBlockerScreeningService : CallScreeningService() {
         val response = CallResponse.Builder()
             .setDisallowCall(true)        // ปฏิเสธการรับสาย
             .setRejectCall(true)          // สั่งตัดสายทิ้งทันที
+            .setSilenceCall(true)         // สั่งปิดเสียงกริ่งทันที
             .setSkipNotification(true)    // ไม่ให้เด้ง Pop-up หรือ Notification กวนใจขณะเล่นเกม
             .setSkipCallLog(hideFromSystemCallLog) // เลือกว่าจะซ่อนจาก Call Log หลักของระบบหรือไม่
             .build()

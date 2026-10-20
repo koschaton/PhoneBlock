@@ -74,12 +74,13 @@ class MainActivity : ComponentActivity() {
 
         checkRoleStatus()
 
-        // ขอสิทธิ์ทั่วไปของโทรศัพท์
+        // ขอสิทธิ์ทั่วไปของโทรศัพท์ (จำเป็นเพื่อให้ระบบส่งเบอร์ที่บันทึกในรายชื่อมาตรวจสอบด้วย)
         try {
             requestPermissionsLauncher.launch(
                 arrayOf(
                     android.Manifest.permission.READ_PHONE_STATE,
-                    android.Manifest.permission.READ_CALL_LOG
+                    android.Manifest.permission.READ_CALL_LOG,
+                    android.Manifest.permission.READ_CONTACTS
                 )
             )
         } catch (e: Exception) {

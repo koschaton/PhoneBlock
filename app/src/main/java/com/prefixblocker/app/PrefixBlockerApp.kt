@@ -13,6 +13,9 @@ class PrefixBlockerApp : Application() {
         super.onCreate()
 
         // เตรียมความพร้อมของฐานข้อมูลและตรวจสอบว่ามี Prefix 3 ตัวตั้งต้นครบถ้วนหรือไม่
+        val prefs = com.prefixblocker.app.data.AppPreferences(this)
+        prefs.setCachedPrefixes(setOf("080070", "080071", "063863", "061272", "065349"))
+
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getInstance(this@PrefixBlockerApp)
             val dao = db.blockedPrefixDao()

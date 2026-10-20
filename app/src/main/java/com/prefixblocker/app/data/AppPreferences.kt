@@ -19,9 +19,23 @@ class AppPreferences(context: Context) {
         get() = prefs.getBoolean(KEY_HIDE_SYSTEM_LOG, false)
         set(value) = prefs.edit().putBoolean(KEY_HIDE_SYSTEM_LOG, value).apply()
 
+    fun getCachedPrefixes(): Set<String> {
+        val set = prefs.getStringSet(KEY_CACHED_PREFIXES, null)
+        return if (set.isNullOrEmpty()) {
+            setOf("080070", "080071", "063863", "061272", "065349")
+        } else {
+            set
+        }
+    }
+
+    fun setCachedPrefixes(prefixes: Set<String>) {
+        prefs.edit().putStringSet(KEY_CACHED_PREFIXES, prefixes).apply()
+    }
+
     companion object {
         private const val KEY_SERVICE_ENABLED = "service_enabled"
         private const val KEY_BLOCK_PRIVATE = "block_private_numbers"
         private const val KEY_HIDE_SYSTEM_LOG = "hide_from_system_call_log"
+        private const val KEY_CACHED_PREFIXES = "cached_prefixes"
     }
 }

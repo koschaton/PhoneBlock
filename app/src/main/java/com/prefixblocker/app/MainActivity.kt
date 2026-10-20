@@ -30,7 +30,6 @@ import com.prefixblocker.app.ui.theme.CardDark
 import com.prefixblocker.app.ui.theme.PrefixCallBlockerTheme
 import com.prefixblocker.app.ui.theme.PrimaryBlue
 import com.prefixblocker.app.ui.theme.TextMuted
-import com.prefixblocker.app.ui.theme.TextPrimary
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -60,6 +59,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // ตัวขอสิทธิ์ระบบโทรศัพท์
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        // Permissions handled
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,6 +73,18 @@ class MainActivity : ComponentActivity() {
         prefs = AppPreferences(this)
 
         checkRoleStatus()
+
+        // ขอสิทธิ์ทั่วไปของโทรศัพท์
+        try {
+            requestPermissionsLauncher.launch(
+                arrayOf(
+                    android.Manifest.permission.READ_PHONE_STATE,
+                    android.Manifest.permission.READ_CALL_LOG
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         // ขอสิทธิ์อัตโนมัติหากยังไม่ได้รับสิทธิ์
         if (!isRoleHeld()) {
@@ -144,6 +162,13 @@ class MainActivity : ComponentActivity() {
 
         val activePrefixes = remember(prefixList) {
             prefixList.filter { it.isEnabled }
+        }
+
+        // อัปเดตแคชลง SharedPreferences ทันทีเพื่อความเร็วระดับ < 1ms ใน Service
+        LaunchedEffect(activePrefixes) {
+            if (activePrefixes.isNotEmpty()) {
+                prefs.setCachedPrefixes(activePrefixes.map { it.prefix }.toSet())
+            }
         }
 
         Scaffold(
